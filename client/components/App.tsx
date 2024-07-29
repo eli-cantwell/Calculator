@@ -1,33 +1,33 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 function App() {
-  const [displayNum, setDisplayNum] = useState('0');
-  const [oldNum, setOldNum] = useState(null);
-  const [modifier, setModifier] = useState(null);
+  const [displayNum, setDisplayNum] = useState<string>('0');
+  const [oldNum, setOldNum] = useState<number | null>(null);
+  const [modifier, setModifier] = useState<string | null>(null);
 
-  function handleNumClick(e) {
-    const num = e.target.value;
+  function handleNumClick(e: MouseEvent<HTMLButtonElement>) {
+    const num = e.currentTarget.value;
     setDisplayNum(prev => (prev === '0' ? num : prev + num));
   }
 
-  function handleClear(e) {
+  function handleClear(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setDisplayNum('0');
     setOldNum(null);
     setModifier(null);
   }
 
-  function handleResult(e) {
+  function handleResult(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (oldNum !== null && modifier !== null) {
       const result = calculate(Number(oldNum), Number(displayNum));
       setDisplayNum(result.toString());
-      setOldNum(result);
+      setOldNum(Number(result));
       setModifier(null);
     }
   }
 
-  function calculate(a, b) {
+  function calculate(a: number, b: number): number | string {
     switch (modifier) {
       case '+':
         return a + b;
@@ -45,10 +45,10 @@ function App() {
   function handleMath(e) {
     e.preventDefault();
     if (oldNum === null) {
-      setOldNum(displayNum);
+      setOldNum(Number(displayNum));
     } else if (modifier !== null) {
       const result = calculate(Number(oldNum), Number(displayNum));
-      setOldNum(result);
+      setOldNum(Number(result));
     }
     setDisplayNum('0');
     setModifier(e.target.value);
