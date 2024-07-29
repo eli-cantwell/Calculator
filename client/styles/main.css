@@ -18,15 +18,14 @@ p {
 }
 
 .numpad {
-  width: 70px;
+  width: 110px;
   height: 100px;
   display: flex;
   flex-flow: row wrap;
 }
 
-.numpad div {
+.numpad button {
   text-align: center;
-  border: 1px red solid;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
